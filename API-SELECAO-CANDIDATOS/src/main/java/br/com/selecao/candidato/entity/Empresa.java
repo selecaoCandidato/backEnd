@@ -2,12 +2,17 @@ package br.com.selecao.candidato.entity;
 
 import com.google.gson.annotations.Expose;
 
+import br.com.selecao.candidato.utils.GsonExclude;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class Empresa implements Serializable {
@@ -25,6 +30,10 @@ public class Empresa implements Serializable {
 
     @Column
     private String cidade;
+    
+    @GsonExclude
+    @OneToMany(mappedBy = "empresa")
+    private Set<Candidato> candidatos;
 
     public Long getId() {
         return id;
@@ -57,4 +66,12 @@ public class Empresa implements Serializable {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
+   
+    public Set<Candidato> getCandidato() {
+		return candidatos;
+	}
+	
+	public void setcandidatos(Set<Candidato> candidatos) {
+		this.candidatos = candidatos;
+	}
 }
