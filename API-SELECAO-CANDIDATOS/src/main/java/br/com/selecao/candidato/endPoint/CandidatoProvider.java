@@ -3,7 +3,6 @@ package br.com.selecao.candidato.endPoint;
 import br.com.selecao.candidato.bo.interfaces.ICandidatoBO;
 import br.com.selecao.candidato.entity.Candidato;
 import br.com.selecao.candidato.utils.GsonResponse;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
