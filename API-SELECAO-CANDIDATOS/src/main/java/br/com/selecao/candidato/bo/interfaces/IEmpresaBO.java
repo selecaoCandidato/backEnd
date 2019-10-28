@@ -13,5 +13,5 @@ public interface IEmpresaBO {
 
 	Empresa salvarEmpresa(Empresa empresa);
 
-	void removerEmpresa(Long idEmpresa);
+	void removerEmpresa(Long idEmpresa) throws Exception;
 }
