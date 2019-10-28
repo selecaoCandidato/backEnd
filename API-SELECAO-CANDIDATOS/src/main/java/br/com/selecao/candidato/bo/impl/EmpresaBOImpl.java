@@ -27,6 +27,7 @@ public class EmpresaBOImpl implements IEmpresaBO {
 
 	@Override
 	public Empresa salvarEmpresa(Empresa empresa) {
+		System.out.println(empresa.getNome());
 		return empresaRepository.save(empresa);
 	}
 
