@@ -1,14 +1,13 @@
 package br.com.selecao.candidato.entity;
 
-import java.io.Serializable;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
 public class Candidato implements Serializable {
@@ -25,19 +24,27 @@ public class Candidato implements Serializable {
     private String idade;
 
     @Column
-    private Boolean sexo;
+    private char sexo;
 
     @Column
     private String telefone;
 
-    @Column
-    private String Empresa;
+    /**
+     * Embora as classes Candidato e Conhecimento estejam devidamente mapeadas com seu relacionamento OneToMany,
+     * os elementos do tipo Conhecimento não estão sendo persistidos corretamente, o valor da chave-estrangeira não
+     * está sendo setado, fazendo com que a referência ao objeto candidado seja perdida. Por esse motivo e devido
+     * ao prazo, vou tratar de modo um pouco mais braçal esses objetos.
+     */
+    //@JsonProperty("IdEmpresa")
+    //@ManyToOne(fetch = FetchType.EAGER)
+    private Empresa Empresa;
 
     @Column
     private String observacao;
 
-    @OneToMany(mappedBy = "conhecimento")
-    private Set<Conhecimento> conhecimentos;
+    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
+    private List<Conhecimento> conhecimentos;
 
     public Long getId() {
         return id;
@@ -63,11 +70,11 @@ public class Candidato implements Serializable {
         this.idade = idade;
     }
 
-    public Boolean getSexo() {
+    public char getSexo() {
         return sexo;
     }
 
-    public void setSexo(Boolean sexo) {
+    public void setSexo(char sexo) {
         this.sexo = sexo;
     }
 
@@ -79,11 +86,11 @@ public class Candidato implements Serializable {
         this.telefone = telefone;
     }
 
-    public String getEmpresa() {
+    public Empresa getEmpresa() {
         return Empresa;
     }
 
-    public void setEmpresa(String empresa) {
+    public void setEmpresa(Empresa empresa) {
         Empresa = empresa;
     }
 
@@ -95,11 +102,11 @@ public class Candidato implements Serializable {
         this.observacao = observacao;
     }
 
-    public Set<Conhecimento> getConhecimentos() {
+    public List<Conhecimento> getConhecimentos() {
         return conhecimentos;
     }
 
-    public void setConhecimentos(Set<Conhecimento> conhecimentos) {
+    public void setConhecimentos(List<Conhecimento> conhecimentos) {
         this.conhecimentos = conhecimentos;
     }
 

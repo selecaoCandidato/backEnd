@@ -58,7 +58,6 @@ public class EmpresaProvider {
 
 	@RequestMapping(value = "/empresa/{idEmpresa}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> removerEmpresa(@PathVariable("idEmpresa") Long idEmpresa){
-
 		empresaBO.removerEmpresa(idEmpresa);
 
 		return new ResponseEntity<>(HttpStatus.OK);
